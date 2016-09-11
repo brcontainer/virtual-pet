@@ -2,7 +2,7 @@
     "name": "Virtual Pet",
     "version": "1.0.0",
     "manifest_version": 2,
-    "description": "Virtual Pet",
+    "description": "Retro Virtual Pet extension",
     "icons": {
         "128": "images/icons/icon-128px.png",
         "48":  "images/icons/icon-48px.png",
@@ -14,7 +14,10 @@
         "default_popup": "view/popup.html"
     },
     "background": {
-        "scripts": [ "js/background.js" ]
+        "scripts": [
+            "js/notification.js",
+            "js/background.js"
+        ]
     },
     "permissions": [ "notifications" ]
 }

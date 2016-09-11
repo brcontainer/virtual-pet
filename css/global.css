@@ -1,15 +1,8 @@
-/*
- * PetBrowser 0.0.1
- * Copyright (c) 2016 Guilherme Nascimento (brcontainer@yahoo.com.br)
- * Released under the MIT license
- *
- */
-
 /*@import 'icons.css';*/
+
 @import 'fonts.css';
 
 html, body, h1, h2, h3, h4, h5, p, a {
-    font-family: 'Unibody 8', monospace;
     font-family: 'Share Tech Mono', monospace;
     letter-spacing: 1px;
     font-size: 9pt;

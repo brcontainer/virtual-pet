@@ -1,4 +1,4 @@
-(function(browser) {
+(function(browser, doc) {
     "use strict";
 
     var getBackground = browser.extension.getBackgroundPage();
@@ -6,31 +6,27 @@
     //Remove badge text
     getBackground.badgeReset();
 
-    function Notify(title, message, url)
+    var
+        statusRegex = /(^|\s)show(\s|$)/,
+        closeStatus = doc.getElementById("close-status"),
+        showStatus  = doc.getElementById("show-status"),
+        statusView  = doc.querySelector(".main .status")
+    ;
+
+    function showStatusTamagotchi(e)
     {
-        var props = {
-            "type":    "basic",
-            "title":   title,
-            "iconUrl": "/images/icon-128px.png",
-            "message": message,
-            "requireInteraction": true
-        };
+        e.preventDefault();
 
-        /*
-         * Note: requireInteraction work only in Chrome, Firefox and Opera don't support this
-         */
-
-        //Use url in id
-        var id = url;
-
-        try {
-            browser.notifications.create(id, props, function() {});
-        } catch (ee) {
-            //Firefox don't support requireInteraction and causes exception
-            delete props.requireInteraction;
-
-            browser.notifications.create(id, props, function() {});
+        if (statusRegex.test(statusView.className)) {
+            statusView.className = statusView.className
+                                    .replace(statusRegex, " ")
+                                        .trim();
+        } else {
+            statusView.className += " show";
         }
-    }
+    };
 
-})(chrome||browser);
+    closeStatus.onclick = showStatusTamagotchi;
+    showStatus.onclick  = showStatusTamagotchi;
+
+})(chrome||browser, document);
