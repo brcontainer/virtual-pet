@@ -1,0 +1,20 @@
+{
+    "name": "Virtual Pet",
+    "version": "1.0.0",
+    "manifest_version": 2,
+    "description": "Virtual Pet",
+    "icons": {
+        "128": "images/icons/icon-128px.png",
+        "48":  "images/icons/icon-48px.png",
+        "32":  "images/icons/icon-32px.png",
+        "16":  "images/icons/icon.png"
+    },
+    "browser_action": {
+        "default_icon":  "images/icons/icon.png",
+        "default_popup": "view/popup.html"
+    },
+    "background": {
+        "scripts": [ "js/background.js" ]
+    },
+    "permissions": [ "notifications" ]
+}
