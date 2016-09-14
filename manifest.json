@@ -15,8 +15,8 @@
     },
     "background": {
         "scripts": [
-            "js/notification.js",
-            "js/background.js"
+            "js/background.js",
+            "js/utils.js"
         ]
     },
     "permissions": [ "notifications" ]

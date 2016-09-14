@@ -38,7 +38,11 @@ body {
 }
 
 .main .player {
-    height: 295px;
+    height: 294px;
+}
+
+.main .player canvas {
+    display: block;
 }
 
 .main .status .details p {
@@ -85,7 +89,10 @@ body {
 
 .main .status .issues .issue,
 .main .status .issues .action,
-.main .status .details .action {
+.main .status .details .action,
+.main .status .issues .issue a,
+.main .status .issues .action a,
+.main .status .details .action a {
     height: 100%;
     width: 24px;
     float: right;
@@ -95,12 +102,12 @@ body {
     justify-content: center;
 }
 
-.main .status .issues .issue > *,
-.main .status .issues .action > *,
-.main .status .details .action > * {
+.main .status .issues .issue img,
+.main .status .issues .action img,
+.main .status .details .action img {
     display: block;
-    width: 16px;
     height: 16px;
+    width: 16px;
 }
 
 .main .actions p {
