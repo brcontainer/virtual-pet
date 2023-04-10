@@ -1,5 +1,13 @@
-(function(browser) {
+(function() {
     "use strict";
+
+    var main;
+
+    if (typeof browser !== 'undefined') {
+        main = browser;
+    } else {
+        main = chrome;
+    }
 
     var notificationsTotal = 0;
 
@@ -9,27 +17,27 @@
         notificationsTotal = 0;
 
         //clear text in browserButton
-        browser.browserAction.setBadgeText({
+        main.browserAction.setBadgeText({
             "text": ""
         });
     };
 
-    browser.notifications.onClicked.addListener(function(id, byUser) {
+    main.notifications.onClicked.addListener(function(id, byUser) {
         //Use id for get url
         if (/^(http|https):\/\//.test(id)) {
 
             //Prevent bug in some browsers
             setTimeout(function() {
-                browser.tabs.create({ "url": id });
+                main.tabs.create({ "url": id });
             }, 1);
         }
 
-        browser.notifications.clear(id);
+        main.notifications.clear(id);
     });
 
     function openInternalPage(file)
     {
-        var internalUrl = browser.extension.getURL(file);
+        var internalUrl = main.extension.getURL(file);
 
         /*
          * Firefox don't support query with `moz-extension:` url
@@ -41,7 +49,7 @@
          *   ]
          */
 
-        browser.tabs.query({}, function(tabs) {
+        main.tabs.query({}, function(tabs) {
             var tabId;
 
             if (tabs && tabs.length) {
@@ -55,17 +63,17 @@
 
             if (tabId) {
                 //Focuses tab if is open
-                browser.tabs.update(tabId, { "active": true });
+                main.tabs.update(tabId, { "active": true });
             } else {
                 //Create new tab
-                browser.tabs.create({ "url": internalUrl });
+                main.tabs.create({ "url": internalUrl });
             }
         });
     }
 
     function sendFeedBack(request, sendResponse)
     {
-        browser.browserAction.setBadgeText({
+        main.browserAction.setBadgeText({
             "text": String(++notificationsTotal)
         });
 
@@ -74,7 +82,7 @@
         });
     }
 
-    browser.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    main.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         switch (request.type) {
             case "message":
                 sendFeedBack(request, sendResponse);
@@ -86,4 +94,4 @@
         }
     });
 
-})(chrome||browser);
+})();

@@ -1,5 +1,13 @@
 function Notify(title, message, url)
 {
+    var main;
+
+    if (typeof browser !== 'undefined') {
+        main = browser;
+    } else {
+        main = chrome;
+    }
+
     var props = {
         "type":    "basic",
         "title":   title,
@@ -16,11 +24,11 @@ function Notify(title, message, url)
     var id = url;
 
     try {
-        browser.notifications.create(id, props, function() {});
+        main.notifications.create(id, props, function() {});
     } catch (ee) {
         //Firefox don't support requireInteraction and causes exception
         delete props.requireInteraction;
 
-        browser.notifications.create(id, props, function() {});
+        main.notifications.create(id, props, function() {});
     }
 }

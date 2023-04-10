@@ -1,7 +1,15 @@
-(function(browser, doc) {
+(function( doc) {
     "use strict";
 
-    var getBackground = browser.extension.getBackgroundPage();
+    var main;
+
+    if (typeof browser !== 'undefined') {
+        main = browser;
+    } else {
+        main = chrome;
+    }
+
+    var getBackground = main.extension.getBackgroundPage();
 
     //Remove badge text
     getBackground.badgeReset();
@@ -69,4 +77,4 @@
 
     setTimeout(testDraw, 500);
 
-})(chrome||browser, document);
+})(document);
